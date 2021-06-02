@@ -1,0 +1,53 @@
+//////////////https://leetcode.com/problems/sort-colors/
+
+class Solution {
+    public void sortColors(int[] nums) {
+        //Method1
+        // Counting sort--------> applicable if number of distinct element are less
+//         int count0 = 0;
+//         int count1 = 0;
+//         int count2 = 0;
+//         for(int ele:nums){
+//             if(ele==0) count0++;
+//             if(ele==1) count1++;
+//             if(ele==2) count2++;
+//         }
+        
+        
+//         for(int i=0;i<count0;i++){
+//             nums[i] = 0;
+//         }
+//         for(int i=0;i<count1;i++){
+//             nums[i+count0] = 1;
+//         }
+//         for(int i=0;i<count2;i++){
+//             nums[i+count0+count1] = 2;
+//         }
+        
+        
+        //Method2 Optimal. Using 3 pointers
+        int slow = 0;
+        int fast = nums.length-1;
+        int mid = 0;
+        while(mid<=fast){
+            if(nums[mid]==1) mid++;
+            else if(nums[mid]==0){
+                
+                swap(nums,slow,mid);
+                slow++;
+                mid++;
+            }
+        else{
+            swap(nums,fast,mid);
+            fast--;
+        }
+    }
+}
+    
+    
+    public void swap(int nums[],int i,int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+}
