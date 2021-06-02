@@ -1,0 +1,30 @@
+class Solution {
+    public int missingNumber(int[] nums) {
+        
+        
+        
+        // Brute
+//         int n = nums.length;
+//         int arr[] = new int[n+1];
+//         for(int ele:nums){
+//             arr[ele] = 1;
+//         }
+//         // System.out.println(Arrays.toString(arr));
+//         for(int i=0;i<n+1;i++){
+//             if(arr[i]==0) return i;
+//         }
+        
+//         return 0;
+        
+        
+        //Optimal
+        int sum=0;
+        for(int ele:nums){
+            sum+=ele;
+        }
+        
+        int n = nums.length;
+        return n*(n+1)/2-sum;
+        
+    }
+}
