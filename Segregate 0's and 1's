@@ -1,0 +1,42 @@
+S = No extra space
+T = O(N)
+
+package ArrayAndString;
+
+import java.util.Arrays;
+
+public class Segregate0and1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int arr[] = {1,1,1,1,1,1,1,0,0,0,1,0,1,0,1,0,1,0,0,1,1,0,1,1};
+		int l=0;
+		int r = arr.length-1;
+		segregate(arr,l,r);
+		System.out.println(Arrays.toString(arr));
+
+	}
+	
+	public static void segregate(int arr[],int l,int r) {
+		int i=0,j=0;
+		while(i<r) {
+			if(arr[i]==1) i++;
+			if(arr[i]==0) {
+				swap(arr,i,j);
+				i++;
+				j++;
+			}
+		}
+		
+	}
+	
+	public static void swap(int arr[],int i,int j) {
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+		return;
+	}
+	
+	
+
+}
