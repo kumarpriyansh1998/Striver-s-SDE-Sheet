@@ -1,0 +1,60 @@
+Using the fact that kth smallest element will appear at k-1'th index in the sorted array, we try to sort (not actually sorting the entire array) the array .
+As we know everytime in quicksort atleast the pivot gets in the right place.
+Soo if ever pivot becomes equals to k-1 , then we have our answer. That is element at pivot index.
+
+package ArrayAndString;
+import java.util.*;
+
+public class KthSmallestElement {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int k = sc.nextInt();
+		int arr[] = {8,2,5,4,7,5,1,0,3};
+//		for k largest element, we could do something line k = arr.length-k;
+//		k = arr.length-k;
+
+	  if(k>arr.length) {
+			System.out.println(-1);
+			return;
+		}
+		int l=0;
+		int r=arr.length-1;
+		int answer = kthSmallest(arr,l,r,k);
+		System.out.println(answer);
+
+	}
+	
+	public static int kthSmallest(int arr[],int l,int r,int k) {
+		
+		int pivot = arr[r];
+		int p = quickselect(arr,l,r,pivot);
+		if(p==k-1) return arr[p];
+		else if(p>k-1) return kthSmallest(arr,l,p-1,k);
+		else return kthSmallest(arr,p+1,r,k);
+	}
+	
+	public static int quickselect(int arr[],int l,int r,int pivot) {
+		int i=l,j=l;
+		
+		while(i<=r) {
+			if(arr[i]>pivot) i++;
+			else {
+				swap(arr,i,j);
+				i++;
+				j++;
+			}
+		}
+		
+		return j-1;
+		
+	}
+	
+	public static void swap(int arr[],int i,int j) {
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+	
+}
