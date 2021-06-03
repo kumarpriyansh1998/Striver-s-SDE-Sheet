@@ -1,0 +1,88 @@
+//https://www.pepcoding.com/resources/data-structures-and-algorithms-in-java-levelup/searching-and-sorting/marks_of_pcm/ojquestion
+
+import java.util.*;
+import java.io.*;
+
+public class Main {
+
+    /*You have to complete the body of customSort function, 
+    after sorting final changes should be made in given arrays only. */
+    
+    
+    public static class marks implements Comparable<marks>{
+        int phy;
+        int chem;
+        int maths;
+        marks(int phy,int chem,int maths){
+            this.phy = phy;
+            this.chem = chem;
+            this.maths = maths;
+        }
+        @Override
+        public int compareTo(marks o){
+            int a = 0;
+            a = this.phy-o.phy;
+            if(a==0){
+                a = o.chem-this.chem;
+                if(a==0){
+                    a = this.maths-o.maths;
+                }
+            }
+            
+            
+            return a;
+        }
+    }
+    
+    
+    public static void customSort(int[]phy,int[]chem,int[]math) {
+        //write your code here
+        int n = phy.length;
+        marks arr[] = new marks[n];
+        for(int i=0;i<n;i++){
+            marks new_marks = new marks(phy[i],chem[i],math[i]);
+            arr[i] = new_marks;
+        }
+        
+        Arrays.sort(arr);
+        for(int i=0;i<n;i++){
+            int p = arr[i].phy;
+            int c = arr[i].chem;
+            int m = arr[i].maths;
+            phy[i] = p;
+            chem[i]= c;
+            math[i] = m;
+        }
+        
+    }
+
+    public static void main(String[]args) {
+        Scanner scn = new Scanner(System.in);
+
+        //input work
+        int N = scn.nextInt();
+
+        int[]phy = new int[N];
+        int[]chem = new int[N];
+        int[]math = new int[N];
+
+        for(int i=0; i < N;i++) {
+            phy[i] = scn.nextInt();
+        }
+
+        for(int i=0; i < N;i++) {
+            chem[i] = scn.nextInt();
+        }
+
+        for(int i=0; i < N;i++) {
+            math[i] = scn.nextInt();
+        }
+
+        customSort(phy,chem,math);
+
+        //output
+        for(int i=0; i < N;i++) {
+            System.out.println(phy[i] + " " + chem[i] + " " + math[i]);
+        }
+    }
+}
