@@ -1,0 +1,122 @@
+class Solution {
+    
+//     public static class pair implements Comparable<pair>{
+//         int gap;
+//         int val;
+//         pair(int gap,int val){
+//             this.gap = gap;
+//             this.val = val;
+//         }
+        
+//         @Override
+//         public int compareTo(pair p){
+//             if(this.gap == p.gap){
+//                 return this.val-p.val;
+//             }
+//             return this.gap-p.gap;
+//         }
+//     }
+    
+    
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        
+        
+//         PriorityQueue<pair> pq = new PriorityQueue<>(Collections.reverseOrder());
+        
+        
+//         for(int i=0;i<arr.length;i++){
+//             pair p = new pair(Math.abs(arr[i]-x),arr[i]);
+//             if(pq.size()<k) pq.add(p);
+//             else if(pq.size()==k){
+//                 if(pq.peek().gap>p.gap){
+//                     pq.remove();
+//                     pq.add(p);
+//                 }
+//             }
+//         }
+        
+        
+//         List<Integer> answer = new ArrayList<>();
+//         while(pq.size()>0){
+//             answer.add(pq.remove().val);
+//         }
+//         Collections.sort(answer);
+//         return answer;
+        
+        
+        
+//         mathod2------------------->BinarySearch
+//             TC = nlogn + k+ klogk
+        
+        
+        
+        
+        
+        
+        
+        int l=0;
+        int r = arr.length-1;
+        int mid = 0;
+        while(l<=r){
+            mid = l+(r-l)/2;
+            if(arr[mid]==x){
+                break;
+            }
+            else if(arr[mid]>x){
+                
+                r = mid-1;
+            }else{
+                l = mid+1;
+            }
+        }
+        
+        // System.out.println(mid);
+    
+        l=mid-1;
+        r = mid;
+        List<Integer> answer = new ArrayList<>();
+        while(l>=0 && r<=arr.length-1 && k>0){
+            if(Math.abs(arr[l]-x)<=Math.abs(arr[r]-x)){
+                answer.add(arr[l]);
+                l--;
+            }
+            else{
+                answer.add(arr[r]);
+                r++;
+            }
+            
+            k--;
+        }
+        
+        
+        if(k!=0){
+            while(k>0 && l>=0){
+                answer.add(arr[l]);
+                l--;
+                k--;
+            }
+            
+            while(k>0 && r<=arr.length-1){
+                answer.add(arr[r]);
+                r++;
+                k--;
+            }
+            
+        }
+        
+        Collections.sort(answer);
+        return answer;
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+}
+
