@@ -1,0 +1,51 @@
+class Solution {
+    
+    public static class pair{
+        int first;
+        int second;
+        pair(int first,int second){
+            this.first = first;
+            this.second = second;
+        }
+    }
+    
+    
+    
+    public int[][] merge(int[][] intervals) {
+        if(intervals.length==0 || intervals.length==1) return intervals;
+        
+        //This is how we sort a 2d array
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+        
+        
+        Stack<pair> stack = new Stack<>();
+        for(int[] ele:intervals){
+            pair curr = new pair(ele[0],ele[1]);
+            
+            if(stack.size()==0) stack.push(curr);
+            else if(stack.peek().second<curr.first) stack.push(curr);
+            else if(stack.peek().second==curr.first){
+                stack.peek().second = curr.second;
+            }
+            else{
+                stack.peek().first = Math.min(stack.peek().first,curr.first);
+                stack.peek().second = Math.max(stack.peek().second,curr.second);
+            }
+            
+            
+        }
+        
+        int answer[][] = new int[stack.size()][2];
+        int n = stack.size()-1;
+        while(stack.size()>0){
+            pair p = stack.pop();
+            answer[n][0] = p.first;
+            answer[n][1] = p.second;
+            n--;
+        }
+        
+        
+        return answer;
+        
+    }
+}
