@@ -1,0 +1,34 @@
+package ArrayAndString;
+
+public class KadanesAlgo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int arr[] = {4,3,-2,6,7,-10,-10,4,5,9,-3,4,7,-28,2,9,3,2,11};
+		int msf = Integer.MIN_VALUE;
+		int curr_max = 0;
+		int n = arr.length;
+		int l=0,r=0;
+		int temp=0;
+		for(int i=0;i<n;i++) {
+			if(curr_max<0) {
+				curr_max = arr[i];
+				l=i;
+			}
+			else {
+				curr_max+=arr[i];
+				temp= i;
+			}
+			
+			if(curr_max>msf) {
+				msf = curr_max;
+				r = temp;
+			}
+			
+		}
+		
+		System.out.println(msf+" from index "+l+" to index "+r);
+
+	}
+
+}
