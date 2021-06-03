@@ -1,0 +1,26 @@
+//https://leetcode.com/problems/search-a-2d-matrix/
+
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        
+        return func(matrix,0,matrix[0].length-1,target);
+        
+    }
+    
+    
+    public boolean func(int matrix[][],int i,int j,int target){
+        if(isValid(i,j,matrix)==false) return false;
+        if(matrix[i][j]==target) return true;
+        if(matrix[i][j]<target){
+            return func(matrix,i+1,j,target);
+        }else{
+            return func(matrix,i,j-1,target);
+        }
+    }
+    
+    
+    public boolean isValid(int i,int j,int matrix[][]){
+        if(i<0 || j<0 || i>matrix.length-1 || j>matrix[0].length-1) return false;
+        return true;
+    }
+}
