@@ -1,0 +1,94 @@
+//////////////////https://practice.geeksforgeeks.org/problems/inversion-of-array-1587115620/1#
+
+class Solution
+{
+    // arr[]: Input Array
+    // N : Size of the Array arr[]
+    //Function to count inversions in the array.
+    
+    public static long inv;
+    static long inversionCount(long arr[], long N)
+    {
+        // Your Code Here
+        boolean issorted = true;
+        for(long i=0;i<N-1;i++){
+            if(arr[(int)i]>arr[(int)i+1]){
+                issorted = false;
+            }
+        }
+        
+        
+        if(issorted==true) return 0;
+        
+    
+        inv =0;
+        inv_util(arr,0,N-1);
+        return (long)inv;
+        
+        
+    }
+    
+    
+    
+    public static long[] inv_util(long arr[],long l,long r){
+        
+        if(l==r){
+            return new long[]{arr[(int)l]};
+        }
+        
+        long mid = l+(r-l)/2;
+        long left[] = inv_util(arr,l,mid);
+        long right[] = inv_util(arr,mid+1,r);
+        return merge(left,right);
+    }
+    
+    
+    
+    public static long[] merge(long left[],long right[]){
+        
+        long l = left.length;
+        long r = right.length;
+        long i=0;
+        long j=0;
+        long arr[] = new long[(int)(l+r)];
+        long ind =0;
+        
+        while(i<l && j<r){
+            if(left[(int)i]<=right[(int)j]){
+                arr[(int)ind] = left[(int)i];
+                i++;
+                ind++;
+            }
+            else{
+                inv+=(long)(l-i);
+                arr[(int)ind] =right[(int)j];
+                j++;
+                ind++;
+            }
+        }
+        
+        
+        if(i==l){
+            while(j<r){
+                arr[(int)ind] = right[(int)j];
+                j++;
+                ind++;
+            }
+        }
+        else if(j==r){
+            while(i<l){
+                arr[(int)ind] = left[(int)i];
+                i++;
+                ind++;
+            }
+        }
+        
+        
+        
+        return arr;
+        
+     
+        
+    }
+    
+}
