@@ -1,0 +1,62 @@
+https://leetcode.com/problems/koko-eating-bananas/
+
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+        
+        
+        
+        int low =1;
+        int high = 1000000000;
+        int answer =1;
+        while(low<=high){
+            int mid = low+(high-low)/2;
+            if(isPossible(piles,h,mid)){
+                answer = mid;
+                high = mid-1;
+            }
+            else{
+                low = mid+1;
+            }
+        }
+        return answer;
+        
+        
+        
+        
+    }
+    
+    public boolean isPossible(int piles[],int h,int k){
+        // System.out.println(k);
+        int temp = h;
+        int i=piles.length-1;
+        while(i>=0 && temp>0){
+            if(piles[i]<=k){
+                temp--;
+            }
+            else{
+                int t = piles[i]/k;
+                if(piles[i]%k==0){
+                    temp-=t;
+                }
+                else{
+                    temp-=(t+1);
+                }
+            }
+            
+            i--;
+        
+        }
+        
+        if(i==-1 && temp>=0) return true;
+        return false;
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+}
