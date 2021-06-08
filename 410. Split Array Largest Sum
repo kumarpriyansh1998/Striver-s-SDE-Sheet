@@ -1,0 +1,50 @@
+https://leetcode.com/problems/split-array-largest-sum/
+class Solution {
+    public int splitArray(int[] nums, int m) {
+        
+        int r = (int) 10e9;
+        int l = 0;
+        int answer = 0;
+        while(l<=r){
+            int mid  = l+(r-l)/2;
+            if(func(nums,mid,m)){
+                answer = mid;
+                r = mid-1;
+            }
+            else l = mid+1;
+        }
+        
+        
+        return answer;
+    }
+    
+    
+    public boolean func(int[] nums,int max,int m){
+        
+        // System.out.println(max);
+        
+        int cur_sum =0;
+        int cur_m =1;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]>max) return false;a
+            else if(cur_sum+nums[i]<=max){
+                cur_sum+=nums[i];
+            }
+            else{
+                cur_m++;
+                cur_sum =nums[i];
+            }
+            
+        }
+        if(cur_m>m) return false;
+        return true;
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+}
