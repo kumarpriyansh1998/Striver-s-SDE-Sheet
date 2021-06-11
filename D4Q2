@@ -1,0 +1,55 @@
+https://leetcode.com/problems/4sum/
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> answer =new ArrayList<>();
+        Arrays.sort(nums);
+        int n = nums.length;
+        if(n<4) return answer;
+        
+        int i=0;
+        while(i<n-3){
+            int j = i+1;
+            while(j<n-2){
+                int k = j+1;
+                int l = n-1;
+                long t = target-nums[i]-nums[j];
+                while(k<l){
+                    List<Integer> curr = new ArrayList<>();
+                    
+                    if(t-nums[k]-nums[l]==0){
+                        curr.add(nums[i]);
+                        curr.add(nums[j]);
+                        curr.add(nums[k]);
+                        curr.add(nums[l]);
+                        answer.add(curr);
+                        k++;
+                        l--;
+                        while(k<n-1 && nums[k]==nums[k-1]) k++;
+                        while(l>j && nums[l]==nums[l+1]) l--;
+                        
+                        
+                    }
+                    else if(t-nums[k]-nums[l]>0){
+                        k++;
+                        while(k<n && nums[k]==nums[k-1]) k++;
+                        
+                    }else{
+                        l--;
+                        while(l>=0 && nums[l]==nums[l+1]) l--;
+                    }
+                }
+                
+                j++;
+                while(j<n-2 && nums[j]==nums[j-1]) j++;
+            
+            }
+            i++;
+            while(i<n-3 && nums[i]==nums[i-1]) i++;
+        }
+        
+        
+        
+        return answer;
+        
+    }
+}
