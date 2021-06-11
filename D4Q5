@@ -1,0 +1,34 @@
+public class Solution {
+    public int solve(int[] A, int B) {
+        
+        
+        int count = 0;
+        int xor = 0;
+        HashMap<Integer,Integer> hmap = new HashMap<>();
+        for(int i=0;i<A.length;i++){
+            
+            xor = xor^A[i];
+            int y = xor^B;
+            if(hmap.containsKey(y)){
+                count+=hmap.get(y);
+            }
+            if(xor==B){
+                count++;
+            }
+            
+            if(hmap.containsKey(xor)){
+                hmap.put(xor,hmap.get(xor)+1);
+            }
+            else {
+                hmap.put(xor,1);
+            }
+            
+            
+        }
+        
+        return count;
+        
+        
+        
+    }
+}
