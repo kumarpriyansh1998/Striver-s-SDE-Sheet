@@ -1,0 +1,100 @@
+class Solution {
+    public boolean isIdealPermutation(int[] nums) {
+        
+        
+        int l =0;
+        int r =nums.length-1;
+        
+        for(int i=0;i<r;i++){
+            if(nums[i]>nums[i+1]) local++;
+        }
+        func(l,r,nums);
+        
+        if(local==global) return true;
+        return false;
+        
+        
+        
+    }
+    
+    public int local =0;
+    public int global =0;
+    
+    public int[] func(int l,int r,int nums[]){
+        
+        if(l==r){
+            return new int[]{nums[l]};
+        }
+        
+        int mid = l+(r-l)/2;
+        int left[] = func(l,mid,nums);
+        
+        int right[] = func(mid+1,r,nums);
+                
+
+        int l1 =0;
+        int r1 =0;
+        while(l1<left.length && r1<right.length){
+            
+            if(left[l1]>right[r1]){
+                global+=(left.length-l1);
+                r1++;
+            }
+            else l1++;
+            
+        }
+        int m[] = merge(left,right);
+        return m;
+        
+        
+        
+    }
+    
+    
+    public int[] merge(int left[],int right[]){
+        
+        
+        int l =0;
+        int r =0;
+        int n1 = left.length;
+        int n2 = right.length;
+        int ans[] = new int[n1+n2];
+        int ind =0;
+        while(l<n1 && r<n2){
+            if(left[l]<right[r]){
+                ans[ind] = left[l];
+                l++;
+                ind++;
+            }
+            else{
+                ans[ind] = right[r];
+                r++;
+                ind++;
+            }
+        }
+        
+        
+        if(l==n1){
+            while(r<n2){
+                ans[ind] = right[r];
+                r++;
+                ind++;
+            }
+        }
+        else if(r==n2){
+            while(l<n1){
+                ans[ind] = left[l];
+                l++;
+                ind++;
+            }
+        }
+        
+        return ans;
+    }
+    
+    
+    
+    
+    
+    
+}
