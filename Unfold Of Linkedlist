@@ -1,0 +1,88 @@
+https://www.pepcoding.com/resources/data-structures-and-algorithms-in-java-levelup/linked-list/unfold-of-linkedlist/ojquestion
+
+import java.util.*;
+
+class Main {
+    public static class ListNode {
+        int val = 0;
+        ListNode next = null;
+
+        ListNode(int val) {
+            this.val = val;
+        }
+    }
+
+    public static void unfold(ListNode head) {
+        
+        if(head==null || head.next==null) return;
+        
+        ListNode dummy1 = new ListNode(-1);
+        dummy1.next = head;
+        ListNode dummy2 = new ListNode(-1);
+        dummy2.next = head.next;
+        ListNode temp1 = head,temp2 = dummy2.next;
+        
+        while(temp1!=null && temp1.next!=null){
+            
+            temp1.next = temp1.next.next;
+            temp1 = temp1.next;
+            if(temp2!=null && temp2.next!=null){
+                temp2.next = temp2.next.next;
+                if(temp2.next==null) break;
+                temp2 = temp2.next;
+                
+            }
+        }
+        
+        ListNode tail = find_tail(dummy1.next);
+        ListNode half = reverseList(dummy2.next);
+        tail.next = half;
+        
+        
+        
+        
+    }
+    
+    
+    public static ListNode find_tail(ListNode head){
+        if(head==null || head.next==null) return head;
+        
+        ListNode tail = head;
+        while(tail.next!=null) tail = tail.next;
+        return tail;
+    }
+    
+    public static ListNode reverseList(ListNode head){
+        if(head==null || head.next==null) return head;
+        ListNode temp = reverseList(head.next);
+        head.next.next = head;
+        head.next = null;
+        return temp;
+        
+        
+        
+        
+    }
+
+    static void printList(ListNode node) {
+        while (node != null) {
+            System.out.print(node.val + " ");
+            node = node.next;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        ListNode dummy = new ListNode(-1);
+        ListNode prev = dummy;
+        while (n-- > 0) {
+            prev.next = new ListNode(scn.nextInt());
+            prev = prev.next;
+        }
+
+        ListNode head = dummy.next;
+        unfold(head);
+        printList(head);
+    }
+}
