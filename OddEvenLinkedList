@@ -1,0 +1,61 @@
+https://practice.geeksforgeeks.org/problems/segregate-even-and-odd-nodes-in-a-linked-list5035/1
+class Solution{
+    Node divide(int N, Node head){
+        // code here
+        
+        Node even = new Node(-1);
+        Node odd = new Node(-1);
+        Node temp = head;
+        while(temp!=null){
+            if(temp.data%2==0) {
+                even.next = temp;
+                break;
+            }
+            temp = temp.next;
+        }
+        if(even.next==null) return head;
+        
+        temp = head;
+        while(temp!=null){
+            if(temp.data%2!=1){
+                odd.next = temp;
+                break;
+            }
+            temp = temp.next;
+        }
+        if(odd.next==null) return head;
+        
+        
+        
+        Node po= odd;
+        Node pe = even;
+        temp = head;
+        while(temp!=null){
+            if(temp.data%2==1){
+                po.next = temp;
+                po = po.next;
+            }
+            else{
+                pe.next = temp;
+                pe =pe.next;
+            }
+            temp = temp.next;
+        }
+        
+        
+        
+        po.next = null;
+        
+        pe.next = odd.next;
+        return even.next;
+        
+        
+    
+        
+        
+        
+        
+        
+        
+    }
+}
