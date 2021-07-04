@@ -1,0 +1,86 @@
+class LRUCache {
+    public class ListNode{
+        int key;
+        int val;
+        ListNode next;
+        ListNode prev;
+        ListNode(int key,int val){
+            this.key =key;
+            this.val =val;
+            
+        }
+    }
+    
+    HashMap<Integer,ListNode> hmap;
+    ListNode head;
+    ListNode tail;
+    int capacity;
+    int size;
+    
+
+    public LRUCache(int capacity) {
+        this.capacity =capacity;
+        this.size =0;
+        this.hmap = new HashMap<>();
+        this.head = new ListNode(-1,-1);
+        this.tail = new ListNode(-1,-1);
+        head.next = tail;
+        tail.prev = head;
+        
+    }
+    
+    
+    
+    public int get(int key) {
+        if(hmap.size()==0) return -1;
+        if(!hmap.containsKey(key)) return -1;
+        else{
+            
+            int value = hmap.get(key).val;
+            remove(hmap.get(key));
+            put(key,value);
+            return head.next.val;
+        }
+    }
+    
+    
+    public void remove(ListNode node){
+        hmap.remove(node.key);
+        ListNode temp = node.prev;
+        temp.next = node.next;
+        node.next.prev = temp;
+        node.next = null;
+        node.prev =null;
+        size--;
+    }
+    
+    
+    public void put(int key, int value) {
+        if(hmap.containsKey(key)){
+            remove(hmap.get(key));
+        }
+        if(size==capacity){
+            remove(tail.prev);   
+        }
+            ListNode node =new ListNode(key,value);
+            hmap.put(key,node);
+            ListNode temp = head.next;
+            head.next = node;
+            node.prev = head;
+            node.next = temp;
+            temp.prev =node;
+            size++;
+        
+    }
+    
+    
+    
+    
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
