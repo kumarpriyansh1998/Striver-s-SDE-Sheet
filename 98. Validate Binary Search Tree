@@ -1,0 +1,37 @@
+class Solution {
+    public class node{
+        boolean valid;
+        long min;
+        long max;
+        node(boolean valid,long min,long max){
+            this.valid = valid;
+            this.min = min;
+            this.max = max;
+        }
+    }
+    
+    public boolean isValidBST(TreeNode root) {
+        
+        node temp = func(root);
+        return temp.valid;
+
+    }
+    
+    
+    public node func(TreeNode root){
+        if(root==null) return new node(true,Long.MAX_VALUE,Long.MIN_VALUE);
+        if(root.left==null && root.right==null) return new node(true,root.val,root.val);
+        node l = func(root.left);
+        node r = func(root.right);
+        if(l.valid==false || r.valid==false) return new node(false,-1,-1);
+        
+        long m_ax = Math.max(Math.max(l.max,r.max),root.val);
+        long m_in = Math.min(Math.min(l.min,r.min),root.val);
+        if(root.val>l.max && root.val<r.min && l.valid && r.valid) return new node(true,m_in,m_ax);
+        return new node(false,m_in,m_ax);
+        
+        
+        
+    }
+    
+}
