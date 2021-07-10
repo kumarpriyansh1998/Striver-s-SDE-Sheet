@@ -1,0 +1,50 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        
+        int n = inorder.length;
+        int is=0,ps=0,ie=n-1,pe=n-1;
+        return func(is,ie,ps,pe,inorder,postorder);
+        
+    }
+    
+    
+    public TreeNode func(int is,int ie,int ps,int pe,int inorder[],int postorder[]){
+        if(is>ie || ps>pe) return null;
+        if(is==ie || ps==pe){
+            return new TreeNode(inorder[is]);
+        }
+        
+        
+        int root = postorder[pe];
+        TreeNode rootnode = new TreeNode(root);
+        int i=is;
+        while(i<=ie){
+            if(inorder[i]==root) break;
+            i++;
+        }
+        int len = i-is;
+        rootnode.left = func(is,i-1,ps,ps+len-1,inorder,postorder);
+        rootnode.right = func(i+1,ie,ps+len,pe-1,inorder,postorder);
+        return rootnode;
+        
+        
+        
+        
+        
+    }
+}
